@@ -1,16 +1,28 @@
 <template>
-  <div class="container my-5">
-    <div class="row food-wrapper m-5">
-      <div class="col-md-6 food-img text-center">
-        <img class="rounded" :src="'/img/' + products.gambar" :alt="products.nama" />
+  <div class="container col pt-5">
+    <nav aria-label="breadcrumb ">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/menu">Foods</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Charts</li>
+      </ol>
+    </nav>
+  </div>
+  <div class="container my-5" id="food">
+    <div class="row text-center" v-if="products.length === 0">
+      <h1>Kamu Belum Beli Apapun 👀</h1>
+    </div>
+    <div class="row food-wrapper m-5" v-for="items in products" :key="items.id">
+      <div class="col-md-6 food-img text-center my-3">
+        <img class="rounded" :src="'/img/' + items.gambar" :alt="items.nama" />
       </div>
       <div class="col-md-6 food-info">
         <div class="row">
           <h2>
-            <strong>{{ products.nama }}</strong>
+            <strong>{{ items.nama }}</strong>
           </h2>
           <h5>
-            Harga: <strong>Rp{{ products.harga }},00</strong>
+            Harga: <strong>Rp{{ items.harga }},00</strong>
           </h5>
           <form class="row amountOfOreder my-3">
             <label for="total" class="my-2">Jumlah Pesanan</label>
@@ -19,22 +31,24 @@
             <textarea type="number" id="desc" placeholder="Misal: 'Kasih sangat pedas pokoknya!'"></textarea>
             <div class="d-flex justify-content-between mt-5">
               <h5>
-                Total:
-                <strong>Rp{{ amount * products.harga }},00 </strong>
+                Subtotal:
+                <strong>Rp{{ amount * items.harga }},00 </strong>
               </h5>
-              <button class="btn btn-success">Checkout</button>
             </div>
           </form>
         </div>
       </div>
+    </div>
+    <div class="checkout">
+      <button v-if="products.length !== 0" class="btn btn-success" @click="clear">Checkout</button>
     </div>
   </div>
 </template>
 <script>
 import axios from "axios";
 export default {
-  name: "food-detail",
-  props: ["id"],
+  name: "food-chart",
+
   data() {
     return {
       products: [],
@@ -45,16 +59,26 @@ export default {
     setProducts(data) {
       this.products = data;
     },
+    clear() {
+      for (let i = 0; i < this.products.length; i++) {
+        axios.delete("http://localhost:3000/charts/" + this.products[i].id);
+      }
+      alert("Pesanan Kamu Siap Diproses!");
+      document.getElementById("food").innerHTML = "<h2 class='text-center'>Gas, pesen lagi OWO</h2>";
+    },
   },
   mounted() {
     axios
-      .get("http://localhost:3000/products/" + this.id)
+      .get("http://localhost:3000/charts/")
       .then((res) => this.setProducts(res.data))
       .catch((error) => console.log(error + "Ada yang salah, nih"));
   },
 };
 </script>
 <style scoped>
+.breadcrumb-item a {
+  color: black !important;
+}
 .food-wrapper {
   width: 100%;
   margin: 0 auto !important;
@@ -69,6 +93,9 @@ export default {
 }
 textarea {
   resize: none;
+}
+.checkout {
+  float: right;
 }
 
 @media (max-width: 767.98px) {

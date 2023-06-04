@@ -16,10 +16,10 @@
         </ul>
         <ul class="navbar-nav d-flex">
           <li class="nav-item">
-            <router-link class="nav-link active font" aria-current="page" to="/chart">
+            <router-link class="nav-link active font" aria-current="page" to="/charts">
               <span class="me-2">Keranjang</span>
               <i class="fa-solid fa-cart-shopping me-2" style="color: #ff8000"></i>
-              <span class="amount">0</span>
+              <span class="amount">{{ amount }}</span>
             </router-link>
           </li>
         </ul>
@@ -27,6 +27,14 @@
     </div>
   </nav>
 </template>
+<script>
+export default {
+  name: "nav-bar",
+  props: {
+    amount: Number,
+  },
+};
+</script>
 <style scoped>
 .font {
   /* font-family: "Dancing Script", cursive; */

@@ -14,9 +14,9 @@ const router = createRouter({
       component: () => import("../views/FoodsMenu"),
     },
     {
-      path: "/menu/:id",
-      name: "Kulineran || Detail",
-      component: () => import("../views/FoodDetail"),
+      path: "/charts",
+      name: "Kulineran || Keranjang",
+      component: () => import("../views/FoodCharts"),
       props: true,
     },
     // Jika ada yang salah ketik laman atau laman sudah tidak ada
