@@ -11,9 +11,8 @@
           <div class="card-body">
             <h5 class="card-title">{{ items.nama }}</h5>
             <p>Rp{{ items.harga }}</p>
-            <p>Lorem, ipsum.</p>
             <button class="btn btn-success">
-              <router-link to="/chart"> <i class="fa-solid fa-cart-shopping me-2" style="color: #fff"></i>Pesan</router-link>
+              <router-link :to="'/menu/' + items.id"> <i class="fa-solid fa-cart-shopping me-2" style="color: #fff"></i>Pesan</router-link>
             </button>
           </div>
         </div>

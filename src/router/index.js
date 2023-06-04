@@ -13,6 +13,12 @@ const router = createRouter({
       name: "Kulineran || Menu",
       component: () => import("../views/FoodsMenu"),
     },
+    {
+      path: "/menu/:id",
+      name: "Kulineran || Detail",
+      component: () => import("../views/FoodDetail"),
+      props: true,
+    },
     // Jika ada yang salah ketik laman atau laman sudah tidak ada
     {
       path: "/:catchAll(.*)",
