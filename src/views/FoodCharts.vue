@@ -12,7 +12,7 @@
     <div class="row text-center" v-if="products.length === 0">
       <h1>Kamu Belum Beli Apapun 👀</h1>
     </div>
-    <div class="row food-wrapper m-5" v-for="items in products" :key="items.id">
+    <div class="row food-wrapper m-5" v-for="(items, i) in products" :key="items.id">
       <div class="col-md-6 food-img text-center my-3">
         <img class="rounded" :src="'/img/' + items.gambar" :alt="items.nama" />
       </div>
@@ -26,20 +26,23 @@
           </h5>
           <form class="row amountOfOreder my-3">
             <label for="total" class="my-2">Jumlah Pesanan</label>
-            <input type="number" id="total" v-model="amount" min="1" />
+            <input type="number" id="total" v-model="amount[i]" min="1" @change="subtotal" />
             <label for="desc" class="my-2">Keterangan</label>
             <textarea type="number" id="desc" placeholder="Misal: 'Kasih sangat pedas pokoknya!'"></textarea>
             <div class="d-flex justify-content-between mt-5">
               <h5>
                 Subtotal:
-                <strong>Rp{{ amount * items.harga }},00 </strong>
+                <strong class="subtotal">{{ amount[i] * items.harga }} </strong>
               </h5>
             </div>
           </form>
         </div>
       </div>
     </div>
-    <div class="checkout">
+    <div class="checkout d-flex">
+      <h5 class="mx-5 mt-2">
+        Total: Rp<strong>{{ total }} </strong>
+      </h5>
       <button v-if="products.length !== 0" class="btn btn-success" @click="clear">Checkout</button>
     </div>
   </div>
@@ -52,7 +55,8 @@ export default {
   data() {
     return {
       products: [],
-      amount: 1,
+      amount: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+      total: 0,
     };
   },
   methods: {
@@ -65,6 +69,15 @@ export default {
       }
       alert("Pesanan Kamu Siap Diproses!");
       document.getElementById("food").innerHTML = "<h2 class='text-center'>Gas, pesen lagi OWO</h2>";
+    },
+    subtotal() {
+      this.total = 0;
+      const subtotal = document.querySelectorAll(".subtotal");
+
+      for (let i = 0; i < subtotal.length; i++) {
+        const subtotalInt = parseInt(subtotal[i].textContent);
+        this.total += subtotalInt;
+      }
     },
   },
   mounted() {
