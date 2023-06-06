@@ -32,7 +32,7 @@ export default {
   methods: {
     addChart(index) {
       axios
-        .post("http://localhost:3000/charts", this.bestFoods[index])
+        .post("https://my-json-server.typicode.com/rizkiismail9a/kulineranFakeAPI/charts", this.bestFoods[index])
         .then(() => alert("Pesanan Telah Masuk Keranjang!"))
         .catch((error) => console.log(error + "Ada yang salah, nih"));
       // this.charts.push(this.products[index]);
@@ -41,7 +41,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3000/best-products")
+      .get("https://my-json-server.typicode.com/rizkiismail9a/kulineranFakeAPI/best-products")
       .then((res) => (this.bestFoods = res.data))
       .catch((error) => console.log(error + "Ada yang salah, nih"));
   },

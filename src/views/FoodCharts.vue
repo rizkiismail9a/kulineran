@@ -65,7 +65,7 @@ export default {
     },
     clear() {
       for (let i = 0; i < this.products.length; i++) {
-        axios.delete("http://localhost:3000/charts/" + this.products[i].id);
+        axios.delete("https://my-json-server.typicode.com/rizkiismail9a/kulineranFakeAPI/charts/" + this.products[i].id);
       }
       alert("Pesanan Kamu Siap Diproses!");
       document.getElementById("food").innerHTML = "<h2 class='text-center'>Gas, pesen lagi OWO</h2>";
@@ -82,7 +82,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://localhost:3000/charts/")
+      .get("https://my-json-server.typicode.com/rizkiismail9a/kulineranFakeAPI/charts/")
       .then((res) => this.setProducts(res.data))
       .catch((error) => console.log(error + "Ada yang salah, nih"));
   },
