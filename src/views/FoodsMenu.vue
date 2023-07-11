@@ -48,14 +48,14 @@ export default {
     },
     searchProduct() {
       axios
-        .get("https://my-json-server.typicode.com/rizkiismail9a/kulineranFakeAPI/products?q=" + this.search)
+        .get("http://localhost:3000/products?q=" + this.search)
         .then((res) => this.setProducts(res.data))
         .catch((error) => console.log(error + "Ada yang salah, nih"));
     },
 
     addChart(index) {
       axios
-        .post("https://my-json-server.typicode.com/rizkiismail9a/kulineranFakeAPI/charts", this.products[index])
+        .post("http://localhost:3000/charts", this.products[index])
         .then(() => alert("Pesanan Telah Masuk Keranjang!"))
         .catch((error) => console.log(error + "Ada yang salah, nih"));
       // this.charts.push(this.products[index]);
@@ -64,7 +64,7 @@ export default {
   },
   mounted() {
     axios
-      .get("https://my-json-server.typicode.com/rizkiismail9a/kulineranFakeAPI/products")
+      .get("http://localhost:3000/products")
       .then((res) => this.setProducts(res.data))
       .catch((error) => console.log(error + "Ada yang salah, nih"));
   },
